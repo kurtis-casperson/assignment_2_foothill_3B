@@ -58,11 +58,29 @@ matching_values(dict_one, dict_two)
 
 # B. Write a Python program to sort Counter by value.
 grades = {'Math':81, 'Physics':83, 'Chemistry':87}
-grades_array = []
-for i in grades:
-    print(i)
+def sort_dict_by_value(input_dict):
+    """
+    Sorts a dictionary by its values in descending order.
 
-print(grades)
+    Parameters:
+    input_dict: A dictionary where keys are subjects and values are scores.
+    Returns:
+    A list of tuples, each containing a subject and its score, sorted by score in descending order.
+    """
+    # Create a list of tuples from the dictionary
+    items = [(key, value) for key, value in input_dict.items()]
+    
+    for i in range(len(items)):
+        for j in range(0, len(items) - i - 1):
+            if items[j][1] < items[j + 1][1]:  
+                # Swap if the current item is less than the next item
+                items[j], items[j + 1] = items[j + 1], items[j]
+
+    return items
+
+sorted_output = sort_dict_by_value(grades)
+print(sorted_output)
+
 
 # Question #3 - String Reverse (30pts)
 # Given a string, you need to reverse the order of characters in each word within a
@@ -92,3 +110,23 @@ reverse(sentence)
 # row and replace each occurrence of 0 with 01, and each occurrence of 1 with 10. Given
 # row N and index K, return the K-th indexed symbol in row N.
 # (The values of K are 1-indexed.) (1 indexes)
+
+def kGrammar(n_row, k_index):
+    k_index -= 1
+    symbol = 0
+
+    while n_row > 0:
+        # Check if k is odd or even
+        if k_index % 2 != 0:
+            symbol = 1 - symbol 
+        k_index //= 2 
+        n_row -= 1  
+        print(symbol)
+    return symbol
+
+row = 4
+
+index = 5
+
+result = kGrammar(row, index)
+print(f"The K-th indexed symbol in row {row} is: {result}")
